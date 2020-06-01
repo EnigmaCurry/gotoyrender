@@ -21,7 +21,6 @@ uniform float iChannelTime[4];      // channel playback time (in seconds)
 uniform vec4      iDate;            // (year, month, day, time in seconds)
 uniform vec4      iMouse;           // mouse pixel coords. xy: current (if MLB down), zw: click
 
-vec4 texture(sampler2D s, vec2 c) { return texture2D(s,c); }
 void mainImage( out vec4 fragColor, in vec2 fragCoord );
 
 void main() {
