@@ -2,13 +2,14 @@ package toy
 
 import (
 	"fmt"
+	"image"
+	"image/color"
+	"time"
+
 	"github.com/faiface/glhf"
 	"github.com/faiface/mainthread"
 	"github.com/faiface/pixel"
 	"github.com/go-gl/mathgl/mgl32"
-	"image"
-	"image/color"
-	"time"
 )
 
 type Render struct {
@@ -27,14 +28,13 @@ type Render struct {
 	vars                *shaderVars
 }
 
-func MakeToyRender(width, height int) *Render {
-	now := time.Now()
+func MakeToyRender(width, height int, startTime time.Time) *Render {
 	tr := &Render{
 		uniforms:    map[string]*uniformData{},
 		uniformList: glhf.AttrFormat{},
 		vars: &shaderVars{
-			startTime:   now,
-			lastRender:  now,
+			startTime:   startTime,
+			lastRender:  startTime,
 			resolution:  mgl32.Vec3{float32(width), float32(height), 1},
 			frameNumber: 0,
 			channelTime: [4]float32{0, 0, 0, 0},
@@ -45,7 +45,7 @@ func MakeToyRender(width, height int) *Render {
 				{0, 0, 1},
 			},
 			mouse:     mgl32.Vec4{0, 0, 0, 0},
-			date:      mgl32.Vec4{float32(now.Year()), float32(now.Month()), float32(now.Day()), float32(now.Second())},
+			date:      mgl32.Vec4{float32(startTime.Year()), float32(startTime.Month()), float32(startTime.Day()), float32(startTime.Second())},
 			movieMode: false,
 		},
 		shaderDirty: true,
